@@ -1,0 +1,32 @@
+{
+  "title": "3Descu quote MCP server",
+  "dwg": "DWG EX-002",
+  "rev": "REV 1.0",
+  "nodes": [
+    ["client", 0, 0, 1, "ext", "MCP client", "Claude, ChatGPT, any client"],
+    ["rate", 0, 1, 1, "gate", "Rate limits", "300 calls an hour per IP, plus per-tool buckets"],
+    ["val", 0, 2, 1, "gate", "Validation", "Refuse, never clamp"],
+    ["tools", 0, 3, 1, "sys", "4 read-only tools", "Capabilities, materials, analyse, price"],
+    ["hosts", 1, 0, 1, "ext", "Public model hosts", "Printables, Thingiverse, GitHub and others"],
+    ["ssrf", 1, 1, 1, "gate", "SSRF guard", "Allowlist, every hop re-checked, 25 MB cap"],
+    ["mesh", 1, 2, 1, "sys", "Mesh parser", "Same parser as the browser"],
+    ["engine", 1, 3, 1, "sys", "Production pricing engine", "Same engine as quote.3descu.com"],
+    ["red", 2, 3, 1, "gate", "Redaction", "Publishable vs barred fields, checked"],
+    ["resp", 3, 3, 1, "live", "Price response", "Economy, standard, express, EUR"]
+  ],
+  "edges": [
+    ["client", "rate"],
+    ["rate", "val"],
+    ["val", "tools"],
+    ["tools", "engine"],
+    ["hosts", "ssrf"],
+    ["ssrf", "mesh"],
+    ["mesh", "engine"],
+    ["engine", "red"],
+    ["red", "resp"]
+  ],
+  "zones": [
+    ["Supabase Edge Function, Deno, streamable HTTP", ["rate", "val", "tools", "ssrf", "mesh", "engine", "red"]]
+  ],
+  "m": ["client", "rate", "val", "tools", "hosts", "ssrf", "mesh", "engine", "red", "resp"]
+}
