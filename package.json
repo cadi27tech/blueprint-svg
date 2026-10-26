@@ -1,6 +1,6 @@
 {
   "name": "blueprint-svg",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "System drawings and dot-matrix wordmarks as standalone SVG: one spec, a wide layout and a phone layout, no runtime, renders inside an <img> on GitHub.",
   "type": "module",
   "main": "index.mjs",

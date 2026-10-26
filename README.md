@@ -84,9 +84,9 @@ Lines draw themselves in once on load, and nothing moves under `prefers-reduced-
 
 ## Tests
 
-<img src="docs/terminal.svg" alt="npm test: 13 tests pass, then the CLI writes the wide and phone drawings">
+<img src="docs/terminal.svg" alt="npm test: 14 tests pass, then the CLI writes the wide and phone drawings">
 
-`npm test` runs 13 tests with `node:test`: layout rules, every failure mode of a bad spec, label wrapping inside boxes, phone ordering, escaping, determinism, reduced motion, the glyph set, and a check that the committed examples match what the code renders now. CI runs them on every push.
+`npm test` runs 14 tests with `node:test`: layout rules, every failure mode of a bad spec, label wrapping inside boxes and above zones, phone ordering, escaping, determinism, reduced motion, the glyph set, and a check that the committed examples match what the code renders now. CI runs them on every push.
 
 ## Licence
 

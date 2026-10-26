@@ -125,9 +125,10 @@ export function drawing(spec, mode = 'd') {
     const text = lab.toUpperCase(), maxCh = Math.floor((x1 - x0 - 34) / 6.7);
     const tl = text.length > maxCh ? wrap(text, maxCh) : [text];
     const tw = Math.max(...tl.map((l) => l.length)) * 6.7 + 14, th = 16 + (tl.length - 1) * 12;
+    const up = (tl.length - 1) * 12; // a wrapped label grows upward, into the gap above, never down over the first node
     return {
       box: `<rect class="z f" x="${f1(x0)}" y="${f1(y0)}" width="${f1(x1 - x0)}" height="${f1(y1 - y0)}"${T(t)}/>`,
-      tag: `<g class="f"${T(t + 0.2)}><rect class="zb" x="${f1(x0 + 10)}" y="${f1(y0 - 8)}" width="${f1(tw)}" height="${th}"/><text class="zl">${tl.map((l, k) => `<tspan x="${f1(x0 + 17)}" y="${f1(y0 + 3.5 + k * 12)}">${esc(l)}</tspan>`).join('')}</text></g>`,
+      tag: `<g class="f"${T(t + 0.2)}><rect class="zb" x="${f1(x0 + 10)}" y="${f1(y0 - 8 - up)}" width="${f1(tw)}" height="${th}"/><text class="zl">${tl.map((l, k) => `<tspan x="${f1(x0 + 17)}" y="${f1(y0 + 3.5 - up + k * 12)}">${esc(l)}</tspan>`).join('')}</text></g>`,
     };
   }).filter(Boolean);
   const body = nodes.map((n) => {

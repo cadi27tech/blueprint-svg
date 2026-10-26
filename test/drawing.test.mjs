@@ -99,3 +99,16 @@ test('committed examples match what the code renders now', () => {
     assert.equal(readFileSync(new URL(`${name}-m.svg`, dir), 'utf8'), sheet(spec, { mode: 'm' }), `${name}-m.svg is stale: npm run examples`);
   }
 });
+
+test('a wrapped zone label stays above the first node of its zone', () => {
+  const spec = base();
+  spec.zones = [['A boundary label long enough to wrap onto a second line in the phone layout', ['b', 'c']]];
+  for (const mode of ['d', 'm']) {
+    const { nodes } = layout(spec, mode);
+    const top = Math.min(...nodes.filter((n) => ['b', 'c'].includes(n.id)).map((n) => n.y));
+    const zl = drawing(spec, mode).svg.match(/<text class="zl">(.*?)<\/text>/)[1];
+    const lines = [...zl.matchAll(/y="([\d.]+)"/g)].map((m) => +m[1]);
+    if (mode === 'm') assert.ok(lines.length > 1, 'the label wraps on phones');
+    for (const y of lines) assert.ok(y < top, `${mode}: label line at ${y} runs into the node at ${top}`);
+  }
+});

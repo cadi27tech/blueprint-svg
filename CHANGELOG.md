@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1 (2026-10-26)
+
+- Fix: a zone label that wraps (long labels on the phone layout) now grows upward into the gap above its zone. It used to grow down over the first node. A test pins it.
+
 ## 1.0.0 (2026-10-26)
 
 First release as a standalone library. The drawing engine was written for the system drawings on cadi27tech.github.io (case-study pages, October 2026); this release lifts it out of the site build.
